@@ -73,9 +73,9 @@ program hw_9
     open(newunit=lun1, file='potential.dat', status='REPLACE')
 
     ! Write each row of data to the file with center cell coordinates x, y
-    x = 0.5 * cell_length
+    x = -0.5 * cell_length
     do i=0,N+1
-        y = 0.5 * cell_length
+        y = -0.5 * cell_length
         do j=0,N+1
             write(lun1,*) x, y, new_u(i,j)
 
