@@ -228,32 +228,32 @@ program hw_7
     real    :: delta_x                          ! The subinterval size
     real    :: area_i                           ! The i-th area calculated
     real    :: partial_sum                      ! The running total for the sum
-    real, parameter    :: upper_bound = 20.0    ! Upper bound of integration
-    real, parameter    :: lower_bound = 1.0     ! Lower bound of integration 
-    real, parameter    :: a = 4.0e3             ! Equation parameters 
-    real, parameter    :: b = 15.15
-    real, parameter    :: c = 0.01          
+    real, parameter    :: UPPER_BOUND = 20.0    ! Upper bound of integration
+    real, parameter    :: LOWER_BOUND = 1.0     ! Lower bound of integration 
+    real, parameter    :: A = 4.0e3             ! Equation parameters 
+    real, parameter    :: B = 15.15
+    real, parameter    :: C = 0.01          
 
     ! Explain the program and prompt the user for an n
     write(*,*) 'This program calculates the definite integral of &
-        (x + COS(x)) * EXP(COS(x)) + a*EXP(- (x-b)**2 / c) from  &
-        1 to 20 using Simpsons Rule with n subintervals where a = 4000, &
-        b = 15.15 and c = 0.01'
+        (x + COS(x)) * EXP(COS(x)) + A*EXP(- (x-B)**2 / C) from  &
+        1 to 20 using Simpsons Rule with n subintervals where A = 4000, &
+        B = 15.15 and C = 0.01'
     write(*,*) 'Please provide an n'
     read(*,*) n
 
     ! Calculate the subinterval size
-    delta_x = (upper_bound - lower_bound) / REAL(n)
+    delta_x = (upper_bound - lower_bound) / real(n)
 
     ! Initialize the x_i term and the corresponding f(x's)
     x_i = lower_bound
-    f_of_x_i = (x_i + COS(x_i)) * EXP(COS(x_i)) + a*EXP(-(x_i-b)**2 / c)
-    f_of_x_i_plus_half = (x_i+0.5*delta_x + COS(x_i+0.5*delta_x)) &
-        * EXP(COS(x_i+0.5*delta_x)) &
-        + a*EXP(-(x_i+0.5*delta_x-b)**2 / c)
-    f_of_x_i_plus_one = (x_i+delta_x + COS(x_i+delta_x)) &
-        * EXP(COS(x_i+delta_x)) &
-        + a*EXP(-(x_i+delta_x-b)**2 / c)
+    f_of_x_i = (x_i + cos(x_i)) * exp(cos(x_i)) + A*exp(-(x_i-B)**2 / C)
+    f_of_x_i_plus_half = (x_i+0.5*delta_x + cos(x_i+0.5*delta_x)) &
+        * exp(cos(x_i+0.5*delta_x)) &
+        + A*exp(-(x_i+0.5*delta_x-B)**2 / C)
+    f_of_x_i_plus_one = (x_i+delta_x + cos(x_i+delta_x)) &
+        * exp(cos(x_i+delta_x)) &
+        + A*exp(-(x_i+delta_x-B)**2 / C)
 
     ! Initialize the i-th area term and the running sum
     area_i = 0.0
@@ -267,13 +267,13 @@ program hw_7
         partial_sum = partial_sum + area_i
 
         x_i = x_i + delta_x
-        f_of_x_i = (x_i + COS(x_i)) * EXP(COS(x_i)) + a*EXP(-(x_i-b)**2 /c)
-        f_of_x_i_plus_half = (x_i+0.5*delta_x + COS(x_i+0.5*delta_x)) &
-            * EXP(COS(x_i+0.5*delta_x)) &
-            + a*EXP(-(x_i+0.5*delta_x-b)**2 / c)
-        f_of_x_i_plus_one = (x_i+delta_x + COS(x_i+delta_x)) &
-            * EXP(COS(x_i+delta_x)) &
-            + a*EXP(-(x_i+delta_x-b)**2 / c)
+        f_of_x_i = (x_i + cos(x_i)) * exp(cos(x_i)) + A*exp(-(x_i-B)**2 / C)
+        f_of_x_i_plus_half = (x_i+0.5*delta_x + cos(x_i+0.5*delta_x)) &
+            * exp(cos(x_i+0.5*delta_x)) &
+            + A*exp(-(x_i+0.5*delta_x-B)**2 / C)
+        f_of_x_i_plus_one = (x_i+delta_x + cos(x_i+delta_x)) &
+            * exp(cos(x_i+delta_x)) &
+            + A*exp(-(x_i+delta_x-B)**2 / C)
     end do
 
     ! Return the sum to the user with the inputs given
